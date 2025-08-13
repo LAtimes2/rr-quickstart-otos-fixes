@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>RR Data Loading Test</title>
+
+  <link rel="stylesheet" href="../style.css" />
+
+  <script type="module">
+    import { prepareAngularRampData, prepareForwardRampData, prepareLateralRampData } from '../common.ts';
+
+    function arange(x0, x1, n) {
+      const dx = (x1 - x0) / (n - 1);
+      const xs = [];
+      for (let i = 0; i < n; i++) {
+        xs.push(x0 + i * dx);
+      }
+      return xs;
+    }
+
+    function srange(t0, t1, x0, x1, n) {
+      return {
+        times: arange(t0, t1, n),
+        values: arange(x0, x1, n),
+      };
+    }
+
+    function constAccelPos(t0, t1, a, n) {
+      const dt = (t1 - t0) / (n - 1);
+      const ts = arange(t0, t1, n);
+      const xs = [];
+      let x = 0;
+      for (let i = 0; i < n; i++) {
+        x += 0.5 * a * dt * dt;
+        xs.push(x);
+      }
+      return {
+        times: ts,
+        values: xs,
+      };
+    }
+    function constAccelVel(t0, t1, a, n) {
+      const dt = (t1 - t0) / (n - 1);
+      const ts = arange(t0, t1, n);
+      const xs = [];
+      let x = 0;
+      for (let i = 0; i < n; i++) {
+        x += a * dt;
+        xs.push(x);
+      }
+      return {
+        times: ts,
+        values: xs,
+      };
+    }
+
+    prepareAngularRampData({
+      type: "mecanum",
+      leftPowers: [srange(0, 1, 0, -1, 100)],
+      rightPowers: [srange(0, 1, 0, 1, 100)],
+      voltages: srange(0, 1, 0, 12, 100),
+      leftEncPositions: [],
+      rightEncPositions: [],
+      parEncPositions: [constAccelPos(0, 1, 1, 100)],
+      perpEncPositions: [constAccelPos(0, 1, 1, 100)],
+      leftEncVels: [],
+      rightEncVels: [],
+      parEncVels: [constAccelVel(0, 1, 1, 100)],
+      perpEncVels: [constAccelVel(0, 1, 1, 100)],
+      leftEncFixVels: [],
+      rightEncFixVels: [],
+      parEncFixVels: [false],
+      perpEncFixVels: [false],
+      angVels: [srange(0, 1, 0, 0, 100), srange(0, 1, 0, 0, 100), srange(0, 1, 0, 1, 100)],
+    });
+
+    prepareForwardRampData({
+      type: "mecanum",
+      powers: [srange(0, 1, 0, -1, 100)],
+      voltages: srange(0, 1, 0, 12, 100),
+      forwardEncPositions: [constAccelPos(0, 1, 1, 100)],
+      forwardEncVels: [constAccelVel(0, 1, 1, 100)],
+      forwardEncFixVels: [false],
+    });
+
+    prepareLateralRampData({
+      type: "mecanum",
+      frontLeftPower: srange(0, 1, 0, -1, 100),
+      backLeftPower: srange(0, 1, 0, -1, 100),
+      frontRightPower: srange(0, 1, 0, 1, 100),
+      backRightPower: srange(0, 1, 0, 1, 100),
+      voltages: srange(0, 1, 0, 12, 100),
+      perpEncPositions: [constAccelPos(0, 1, 1, 100)],
+      perpEncVels: [constAccelVel(0, 1, 1, 100)],
+      perpEncFixVels: [false],
+    });
+  </script>
+</head>
+
+<body>
+  <div class="content"></div>
+</body>
+
+</html>
