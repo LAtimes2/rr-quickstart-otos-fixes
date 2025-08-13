@@ -8,21 +8,21 @@ Check out the [docs](https://rr.brott.dev/docs/v1-0/tuning/).
 
 Here's my additional notes to the tuning document above that are specific to OTOS and mecanum drive. My values are for a REV mecanum drivetrain kit.
 
-=======================
-# OTOSAngularScalarTuner
+---
+## OTOSAngularScalarTuner
 
 This measures the IMU heading accuracy. 
 
 In OTOSLocalizer line 18: 
-        public double angularScalar = 1.0;
+`        public double angularScalar = 1.0;`
 
 1. Run the test
 2. Uncorrected degrees turned: 3625.   Calculated Angular Scalar: 0.9931
-        public double angularScalar = 0.99;
+`        public double angularScalar = 0.99;`
 3. If you re-run the test with the new value, Calculated Angular Scalar should be 1.0
 
-=======================
-# OTOSLinearScalerTuner
+---
+## OTOSLinearScalerTuner
 
 This measures the accuracy of the OTOS when measuring distance.
 
