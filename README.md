@@ -17,7 +17,7 @@ In OTOSLocalizer line 18:
 `        public double angularScalar = 1.0;`
 
 1. Run the test
-2. Uncorrected degrees turned: 3625.   Calculated Angular Scalar: 0.9931  
+2. Copy the value for Calculated Angular Scalar into angularScalar:    
 `        public double angularScalar = 0.99;`
 3. If you re-run the test with the new value, Calculated Angular Scalar should be 1.0
 
@@ -33,10 +33,12 @@ In OTOSLocalizer line 19:
 2. Run the test
 3. Uncorrected was 55, but depended on speed (78 when slow, 39 when fast)
 4. Tuning instructions say Uncorrected / Actual, but really Actual / Uncorrected.  
-`        public double linearScalar = 95.0 / 55.0;`
+`        public double linearScalar = 1.72;  // 95.0 / 55.0`
 5. If value is less than 0.872 or greater than 1.127, then set it to the limit. Otherwise it will be ignored.  
       You will have to adjust for the difference in your distances - maybe use a function to convert actual
       value to sent value.
+5.1 Since my value was geater than 1.127, I set it to 1.127:  
+`        public double linearScalar = 1.127;  // max allowed value`
 6. If you re-run after changing linearScalar: uncorrected now should be close to actual (since it is corrected)
 
 ---
