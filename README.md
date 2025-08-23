@@ -1,5 +1,7 @@
 # Road Runner Quickstart
 
+[8/23/2025] As of roadrunner version 0.1.25, these issues have been fixed and this repository is not needed. But the notes below will be helpful for tuning with the OTOS sensor.
+
 This repository is a fork of the acmerobotics road-runner-quickstart repository with fixes for the SparcFun OTOS odometry board.
 
 [8/12/2025] Issues have been written against the acmerobotics code, but in the meantime, this contains the fixes and works for tuning a robot with the OTOS board. It has only been tested with mecanum drive. The fix needed the base road runner FTC code, so it has been copied into this repository (under the RoadRunner and web directories - only change is to tuning.kt).
